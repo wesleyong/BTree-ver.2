@@ -2,12 +2,12 @@ import java.util.*;
 import java.io.*;
 public class Btree
 {
-    private HashMap<Integer, Node> node;
-    private final int order = 7;
+    private final int order = 5;
     private int nodeSize;
     private int maxByte;
-    private int totalRecords;
+    private static int totalRecords;
     private int rootNode;
+    private static HashMap<Integer, Node> node;
     private RandomAccessFile file;
     public Btree(String strFile) throws IOException
     {
@@ -56,7 +56,6 @@ public class Btree
         node.get(insertRecord).insert(insertIndex, ID, offNum);
         writeData(insertRecord, node);
         split(insertRecord, node);
-        printRecord(node);
     }
     public void split(int insertRecord, HashMap<Integer, Node> node) throws IOException
     {
@@ -199,24 +198,5 @@ public class Btree
     public void exit() throws IOException
     {
         this.file.close();
-    }
-    public void printRecord(HashMap<Integer, Node> node)
-    {
-        String line = "";
-        for(int n = 0; n < totalRecords; n++)
-        {
-            if(node.containsKey(n))
-            {
-                Node a = node.get(n);
-                int[] b = a.getData();
-                line = line + "Record# " + n + ": (";
-                for(int o = 0; o < b.length - 1; o++)
-                {
-                    line = line + b[o] + ", ";
-                }
-                line = line + b[b.length - 1] + ")" + "\n";
-            }
-        }
-        System.out.print(line + "\n" + "> ");
     }
 }

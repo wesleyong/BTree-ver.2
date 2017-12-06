@@ -25,7 +25,7 @@ public class btdb
         if(input.length > 1)
         {
             ID = input[1];
-            if(integerConvertible(ID))
+            if(integerConverter(ID))
             {
                 IDKey = Integer.parseInt(ID);
             }
@@ -47,7 +47,7 @@ public class btdb
         {
             key = "";
         }
-        while(command != "exit")
+        while(!command.equals("exit"))
         {
             solves(command, IDKey, key, tree, values);
             temp = sc.nextLine();
@@ -63,7 +63,7 @@ public class btdb
             if(input.length > 1)
             {
                 ID = input[1];
-                if(integerConvertible(ID))
+                if(integerConverter(ID))
                 {
                     IDKey = Integer.parseInt(ID);
                 }
@@ -95,9 +95,9 @@ public class btdb
     }
     public static void solves(String command, int IDKey, String key, Btree tree, ValuesFile values) throws IOException
 	{
-		if(command == "insert" && IDKey != -1)
+		if(command.equals("insert") && IDKey != -1)
 		{
-			boolean go = values.isNew(IDKey);
+			boolean go = values.newID(IDKey);
 			values.insert(IDKey, key);
 			if(go == true)
 			{
@@ -105,15 +105,15 @@ public class btdb
 				tree.insert(IDKey, offSet);
 			}
 		}
-		else if(command == "update" && IDKey != -1)
+		else if(command.equals("update") && IDKey != -1)
 		{
 			values.update(IDKey, key);
 		}
-		else if(command == "select" && IDKey != -1)
+		else if(command.equals("select") && IDKey != -1)
 		{
 			values.select(IDKey);
 		}
-		else if(command == "exit")
+		else if(command.equals("exit"))
 		{	
 			tree.exit();
 			values.exit();
